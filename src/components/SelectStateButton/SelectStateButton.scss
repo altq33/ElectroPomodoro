@@ -1,0 +1,30 @@
+@use "../../vars.scss" as *;
+
+.select-state-btn {
+  padding: 5px;
+  border: 0;
+  background: $textColor;
+  color: $lightLongBreakColor;
+  border-radius: 7px;
+  box-shadow: 0 4px 0px $lightLongBreakColor;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  justify-content: center;
+  transition: all 0.2s;
+  position: relative;
+  position: relative;
+  top: 0;
+  cursor: pointer;
+
+  &.active {
+    top: 3px;
+    box-shadow: 0 2px 0px $lightLongBreakColor;
+    transition: all 0.2s;
+  }
+
+  @media screen and (max-width: 335px) {
+    width: 80%;
+  }
+}

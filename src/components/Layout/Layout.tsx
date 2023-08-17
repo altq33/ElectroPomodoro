@@ -2,8 +2,9 @@ import React from "react";
 import { Link, Outlet, useHref, useLocation } from "react-router-dom";
 import "./Layout.scss";
 import { key } from "localforage";
+import { BrowserWindow } from "electron";
 
-function Layout() {
+export const Layout = () => {
   const location = useLocation();
   const locationAllias: {
     [key: string]: string;
@@ -33,10 +34,14 @@ function Layout() {
             <nav className="main-menu">
               <ul className="menu-list">
                 <li className="menu-list-item">
-                  <Link to="settings">Настройки</Link>
+                  <Link to="settings">
+                    <span>Настройки</span>
+                  </Link>
                 </li>
                 <li className="menu-list-item">
-                  <Link to="stats">Статистика</Link>
+                  <Link to="stats">
+                    <span>Статистика</span>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -50,6 +55,4 @@ function Layout() {
       </main>
     </div>
   );
-}
-
-export default Layout;
+};

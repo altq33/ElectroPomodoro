@@ -21,17 +21,31 @@
 .current-page-name {
   font-size: 1.3rem;
   flex: 0 0 auto;
+  @media screen and (max-width: 840px) {
+    font-size: 1.1rem;
+  }
+  @media screen and (max-width: 670px) {
+    font-size: 1rem;
+  }
 }
 
 .logo-container {
   display: flex;
   gap: 20px;
+  align-items: baseline;
 }
 
 .logo {
   font-weight: bold;
   font-size: 2.5rem;
   cursor: pointer;
+  outline: none;
+  @media screen and (max-width: 840px) {
+    font-size: 1.8rem;
+  }
+  @media screen and (max-width: 670px) {
+    font-size: 1.2rem;
+  }
 }
 
 .fixed {
@@ -45,6 +59,9 @@
   width: 100%;
   align-items: baseline;
   justify-content: space-between;
+  @media screen and (max-width: 840px) {
+    align-items: center;
+  }
 }
 
 .menu-list {
@@ -54,6 +71,15 @@
   font-weight: bold;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 840px) {
+    font-size: 1.1rem;
+    gap: 20px;
+  }
+  @media screen and (max-width: 670px) {
+    font-size: 1rem;
+    gap: 10px;
+  }
 }
 
 .menu-list-item {
@@ -74,10 +100,38 @@
   position: relative;
   top: 0;
   cursor: pointer;
+  @media screen and (max-width: 840px) {
+    padding: 7px;
+  }
+  @media screen and (max-width: 670px) {
+    padding: 5px;
+  }
+  @media screen and (max-width: 550px) {
+    span {
+      display: none;
+    }
+    box-shadow: 0 3px 0px $lightLongBreakColor;
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    &:first-child {
+      background-image: url("../../assets/settings-svgrepo-com.svg");
+    }
+    li + &:last-child {
+      background-image: url("../../assets/stats-svgrepo-com.svg");
+    }
+    .menu-list-item :active {
+      top: 3px;
+      box-shadow: 0 1px 0px $lightLongBreakColor;
+      transition: all 0.2s;
+    }
+  }
 }
 
 .menu-list-item :active {
   top: 3px;
-  box-shadow: 0 2px 0px #387796;
+  box-shadow: 0 2px 0px $lightLongBreakColor;
   transition: all 0.2s;
 }

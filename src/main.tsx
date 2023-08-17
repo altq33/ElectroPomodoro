@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+import {Layout} from "./components/Layout/Layout";
 import { Settings } from "./pages/Settings/Settings";
 import { Stats } from "./pages/Stats/Stats";
 import { Timer } from "./pages/Timer/Timer";
