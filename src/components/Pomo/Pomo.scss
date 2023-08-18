@@ -1,0 +1,35 @@
+@use "../../vars.scss" as *;
+
+.pomo {
+  display: block;
+  background: #ffff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  &.completed {
+    background: $lightLongBreakColor;
+  }
+
+  &.current {
+    animation: pulse 3s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      background-color: #ffff; /* начальный цвет */
+    }
+    25% {
+      background-color: $lightLongBreakColor;
+    }
+    50% {
+      background-color: #ffff;
+    }
+    75% {
+      background-color: $lightLongBreakColor;
+    }
+    100% {
+      background-color: #ffff; /* снова исходный цвет */
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@use "../../vars.scss" as *;
+
+.settings-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.range-track {
+  height: 15px;
+  width: 100%;
+  border-radius: 7px;
+  background: #ffff;
+  margin-top: 20px;
+}
+
+.range-thumb {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 2px;
+  background-color: $lightLongBreakColor;
+  border-radius: 50%;
+  font-style: normal;
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+label {
+  font-size: 1.3rem;
+  font-style: italic;
+}

@@ -1,8 +1,6 @@
 import React from "react";
 import { Link, Outlet, useHref, useLocation } from "react-router-dom";
 import "./Layout.scss";
-import { key } from "localforage";
-import { BrowserWindow } from "electron";
 
 export const Layout = () => {
   const location = useLocation();
@@ -30,7 +28,6 @@ export const Layout = () => {
                 `}
               </h2>
             </div>
-
             <nav className="main-menu">
               <ul className="menu-list">
                 <li className="menu-list-item">
