@@ -24,3 +24,9 @@ export interface ISettingsGroupProps {
   legend: string;
   children: ReactNode;
 }
+
+export interface ISettingsRangeProps {
+  label: string;
+  value: number;
+  onChange: React.Dispatch<React.SetStateAction<number>>;
+}
