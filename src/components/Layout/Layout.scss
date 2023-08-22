@@ -16,6 +16,7 @@
 #main {
   width: 100%;
   padding-bottom: 20px;
+  padding-top: 40px;
 }
 
 .current-page-name {
@@ -42,7 +43,6 @@
   font-weight: bold;
   font-size: 2.5rem;
   cursor: pointer;
-  outline: none;
   @media screen and (max-width: 840px) {
     font-size: 1.8rem;
   }
@@ -121,8 +121,8 @@
     background-size: 90%;
     background-position: center;
     background-repeat: no-repeat;
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 25px;
     &:first-child {
       background-image: url("../../assets/settings-svgrepo-com.svg");
     }

@@ -3,7 +3,9 @@ import { SettingsGroup } from "@/components/SettingsGroup/SettingsGroup";
 import "./Settings.scss";
 import { SettingsRange } from "@/components/SettingsRange/SettingsRange";
 import Switch from "react-switch";
-
+import { NumberPicker } from "@/components/NumberPicker/NumberPicker";
+import { SettingsSwitch } from "@/components/SettingsSwitch/SettingsSwitch";
+import { SettingsSelect } from "@/components/SettingsSelect/SettingsSelect";
 
 export const Settings = () => {
   const [workTime, setWorkTime] = useState(40);
@@ -12,6 +14,7 @@ export const Settings = () => {
   const [isAutoStartWork, setIsAutoStartWork] = useState(false);
   const [isAutoStartBreak, setIsAutoStartBreak] = useState(false);
   const [isAutoStartRest, setIsAutoStartRest] = useState(false);
+  const [workPomoCount, setWorkPomoCount] = useState(3);
 
   return (
     <div className="content">
@@ -35,42 +38,37 @@ export const Settings = () => {
             />
             <label className="range-label" htmlFor="">
               Количество помидор до отдыха
+              <NumberPicker
+                style={{ marginTop: "20px" }}
+                value={workPomoCount}
+                onChange={setWorkPomoCount}
+                min={1}
+                max={15}
+                readOnly
+              />
             </label>
           </SettingsGroup>
           <SettingsGroup legend="Автопереходы">
-            <label className="switch-label" htmlFor="">
-              <Switch
-                onChange={setIsAutoStartWork}
-                checked={isAutoStartWork}
-                offColor="#9b9b9b"
-                onColor="#8265a7"
-                activeBoxShadow=""
-                uncheckedIcon={false}
-              />
-              Автостарт перерыва
-            </label>
-            <label className="switch-label" htmlFor="">
-              <Switch
-                onChange={setIsAutoStartBreak}
-                checked={isAutoStartBreak}
-                offColor="#9b9b9b"
-                onColor="#8265a7"
-                activeBoxShadow=""
-                uncheckedIcon={false}
-              />
-              Автостарт отдыха
-            </label>
-            <label className="switch-label" htmlFor="">
-              <Switch
-                onChange={setIsAutoStartRest}
-                checked={isAutoStartRest}
-                offColor="#9b9b9b"
-                onColor="#8265a7"
-                activeBoxShadow=""
-                uncheckedIcon={false}
-              />
-              Автостарт работы
-            </label>
+            <SettingsSwitch
+              label="Автостарт работы"
+              value={isAutoStartWork}
+              onChange={setIsAutoStartWork}
+            />
+            <SettingsSwitch
+              label="Автостарт перерыва"
+              value={isAutoStartBreak}
+              onChange={setIsAutoStartBreak}
+            />
+            <SettingsSwitch
+              label="Автостарт отдыха"
+              value={isAutoStartRest}
+              onChange={setIsAutoStartRest}
+            />
+          </SettingsGroup>
+          <SettingsGroup legend="Звуки">
+            <SettingsSelect label="Пора работать" />
+            <SettingsSelect label="Время перерыва" />
+            <SettingsSelect label="Отдохни дружище" />
           </SettingsGroup>
         </form>
       </div>

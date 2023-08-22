@@ -1,0 +1,49 @@
+@use "../../vars.scss" as *;
+
+.number-input-container {
+  display: flex;
+  width: 100px;
+  height: 50px;
+}
+
+.number-input {
+  width: 60%;
+  height: 100%;
+  font-size: 1.2rem;
+  text-align: center;
+  border: none;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  &:focus {
+    outline: none !important;
+  }
+}
+
+.buttons-container {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.change-value-button {
+  height: 50%;
+  border: none;
+  width: 100%;
+  color: $textColor;
+  background-color: $lightLongBreakColor;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:first-child {
+    border-top-right-radius: 7px;
+    border-bottom: 0.25px solid black;
+  }
+
+  &:last-child {
+    border-bottom-right-radius: 7px;
+    border-top: 0.25px solid black;
+  }
+}
