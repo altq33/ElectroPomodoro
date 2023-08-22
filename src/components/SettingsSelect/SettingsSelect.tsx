@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./SettingsSelect.scss";
 import { ISettingsSelectProps } from "@/types/props";
 import Select from "react-select";
+import { SettingsSwitch } from "../SettingsSwitch/SettingsSwitch";
+import { CustomSoundOption } from "../CustomSoundOption/CustomSoundOption";
 
 export const SettingsSelect: React.FC<ISettingsSelectProps> = ({ label }) => {
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
+  const options = useRef<{ value: any; label: string }[]>([
+    {
+      value: new Audio("/src/assets/audio/Frog Sound Effect.mp3"),
+      label: "Лягушка",
+    },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
-  ];
+  ]);
 
   return (
     <label className="select-label">
       {label}
       <Select
-        options={options}
+        options={options.current}
+        components={{ Option: CustomSoundOption }}
         isSearchable={false}
         styles={{
           control: (baseStyles, state) => ({
