@@ -5,11 +5,16 @@ import { ISettingsGroupProps } from "../../types/props";
 export const SettingsGroup: React.FC<ISettingsGroupProps> = ({
   legend,
   children,
+  icon,
+  iconAlt,
 }) => {
   return (
     <fieldset>
       <div className="fieldset-group">
-        <legend>{legend}</legend>
+        <div className="legend-group">
+          <legend>{legend}</legend>
+          <img className="icon" src={icon} alt={iconAlt} />
+        </div>
         {children}
       </div>
     </fieldset>

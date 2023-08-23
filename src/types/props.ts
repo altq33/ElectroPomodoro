@@ -23,6 +23,8 @@ export interface IPomoProps {
 
 export interface ISettingsGroupProps {
   legend: string;
+  icon: string;
+  iconAlt?: string;
   children: ReactNode;
 }
 
@@ -30,6 +32,10 @@ export interface ISettingsRangeProps {
   label: string;
   value: number;
   onChange: React.Dispatch<React.SetStateAction<number>>;
+  min?: number;
+  max?: number;
+  step?: number;
+  renderValue?: (value: number) => number | string;
 }
 
 export interface ISettingsSwitchProps {

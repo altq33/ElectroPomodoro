@@ -69,7 +69,7 @@ export const SettingsSelect: React.FC<ISettingsSelectProps> = ({
           indicatorSeparator: () => ({
             display: "none",
           }),
-          dropdownIndicator: (baseStyles, state) => ({
+          dropdownIndicator: (baseStyles) => ({
             ...baseStyles,
             color: "#8265a7",
             opacity: 1,
@@ -78,11 +78,11 @@ export const SettingsSelect: React.FC<ISettingsSelectProps> = ({
               opacity: 1,
             },
           }),
-          menuList: (baseStyles, state) => ({
+          menuList: (baseStyles) => ({
             ...baseStyles,
             padding: 0,
           }),
-          menu: (baseStyles, state) => ({
+          menu: (baseStyles) => ({
             ...baseStyles,
             backgroundColor: "#8265a7",
           }),

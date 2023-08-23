@@ -7,18 +7,22 @@ export const SettingsRange: React.FC<ISettingsRangeProps> = ({
   label,
   value,
   onChange,
+  min = 1,
+  max = 100,
+  step = 1,
+  renderValue = (value) => value,
 }) => {
   return (
     <label className="range-label" htmlFor="">
       {label}
       <Range
-        step={1}
+        step={step}
         values={[value]}
         onChange={(values) => {
           onChange(values[0]);
         }}
-        min={1}
-        max={100}
+        min={min}
+        max={max}
         renderTrack={({ props, children }) => (
           <div {...props} className="range-track">
             {children}
@@ -26,7 +30,7 @@ export const SettingsRange: React.FC<ISettingsRangeProps> = ({
         )}
         renderThumb={({ props }) => (
           <div {...props} className="range-thumb">
-            {value}
+            {renderValue(value)}
           </div>
         )}
       />

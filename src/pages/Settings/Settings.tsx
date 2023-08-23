@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { SettingsGroup } from "@/components/SettingsGroup/SettingsGroup";
 import "./Settings.scss";
 import { SettingsRange } from "@/components/SettingsRange/SettingsRange";
-import Switch from "react-switch";
 import { NumberPicker } from "@/components/NumberPicker/NumberPicker";
 import { SettingsSwitch } from "@/components/SettingsSwitch/SettingsSwitch";
 import { SettingsSelect } from "@/components/SettingsSelect/SettingsSelect";
 import { ISoundOptions } from "@/types/types";
+import intervalsIcon from "../../assets/clock-lines-svgrepo-com.svg";
+import transitionIcon from "../../assets/transition-node-svgrepo-com.svg";
+import soundIcon from "../../assets/music-svgrepo-com.svg";
 
 export const Settings = () => {
   const [workTime, setWorkTime] = useState(40);
@@ -28,13 +30,13 @@ export const Settings = () => {
     value: null,
     label: "Без звука",
   });
+  const [volume, setVolume] = useState(0.5);
 
-  
   return (
     <div className="content">
       <div className="control-panel">
         <form className="settings-form" action="">
-          <SettingsGroup legend="Интервалы">
+          <SettingsGroup legend="Интервалы" icon={intervalsIcon}>
             <SettingsRange
               label="Рабочее время / мин"
               value={workTime}
@@ -62,7 +64,7 @@ export const Settings = () => {
               />
             </label>
           </SettingsGroup>
-          <SettingsGroup legend="Автопереходы">
+          <SettingsGroup legend="Автопереходы" icon={transitionIcon}>
             <SettingsSwitch
               label="Автостарт работы"
               value={isAutoStartWork}
@@ -79,7 +81,7 @@ export const Settings = () => {
               onChange={setIsAutoStartRest}
             />
           </SettingsGroup>
-          <SettingsGroup legend="Звуки">
+          <SettingsGroup legend="Звуки" icon={soundIcon}>
             <SettingsSelect
               label="Пора работать"
               menuPlacement="bottom"
@@ -97,6 +99,15 @@ export const Settings = () => {
               menuPlacement="top"
               onChange={setRestTimeSound}
               value={restTimeSound}
+            />
+            <SettingsRange
+              label="Громкость"
+              value={volume}
+              onChange={setVolume}
+              min={0.01}
+              max={1}
+              step={0.01}
+              renderValue={(value) => Math.round(value * 100)}
             />
           </SettingsGroup>
         </form>

@@ -4,11 +4,9 @@ fieldset {
   all: unset;
   width: 100%;
   legend {
-    width: 100%;
     font-size: 1.5rem;
     font-weight: bold;
     padding-bottom: 2px;
-    border-bottom: 2px solid $lightLongBreakColor;
   }
 }
 
@@ -17,4 +15,17 @@ fieldset {
   display: flex;
   gap: 20px;
   flex-direction: column;
+}
+
+.legend-group {
+  border-bottom: 2px solid $lightLongBreakColor;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
 }
