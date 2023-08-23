@@ -6,6 +6,7 @@ import Switch from "react-switch";
 import { NumberPicker } from "@/components/NumberPicker/NumberPicker";
 import { SettingsSwitch } from "@/components/SettingsSwitch/SettingsSwitch";
 import { SettingsSelect } from "@/components/SettingsSelect/SettingsSelect";
+import { ISoundOptions } from "@/types/types";
 
 export const Settings = () => {
   const [workTime, setWorkTime] = useState(40);
@@ -15,7 +16,20 @@ export const Settings = () => {
   const [isAutoStartBreak, setIsAutoStartBreak] = useState(false);
   const [isAutoStartRest, setIsAutoStartRest] = useState(false);
   const [workPomoCount, setWorkPomoCount] = useState(3);
+  const [workTimeSound, setWorkTimeSound] = useState<ISoundOptions>({
+    value: null,
+    label: "Без звука",
+  });
+  const [breakTimeSound, setBreakTimeSound] = useState<ISoundOptions>({
+    value: null,
+    label: "Без звука",
+  });
+  const [restTimeSound, setRestTimeSound] = useState<ISoundOptions>({
+    value: null,
+    label: "Без звука",
+  });
 
+  
   return (
     <div className="content">
       <div className="control-panel">
@@ -66,9 +80,24 @@ export const Settings = () => {
             />
           </SettingsGroup>
           <SettingsGroup legend="Звуки">
-            <SettingsSelect label="Пора работать" />
-            <SettingsSelect label="Время перерыва" />
-            <SettingsSelect label="Отдохни дружище" />
+            <SettingsSelect
+              label="Пора работать"
+              menuPlacement="bottom"
+              onChange={setWorkTimeSound}
+              value={workTimeSound}
+            />
+            <SettingsSelect
+              label="Время перерыва"
+              menuPlacement="top"
+              onChange={setBreakTimeSound}
+              value={breakTimeSound}
+            />
+            <SettingsSelect
+              label="Отдохни дружище"
+              menuPlacement="top"
+              onChange={setRestTimeSound}
+              value={restTimeSound}
+            />
           </SettingsGroup>
         </form>
       </div>

@@ -4,15 +4,39 @@ import { ISettingsSelectProps } from "@/types/props";
 import Select from "react-select";
 import { SettingsSwitch } from "../SettingsSwitch/SettingsSwitch";
 import { CustomSoundOption } from "../CustomSoundOption/CustomSoundOption";
+import { ISoundOptions } from "@/types/types";
 
-export const SettingsSelect: React.FC<ISettingsSelectProps> = ({ label }) => {
-  const options = useRef<{ value: any; label: string }[]>([
+export const SettingsSelect: React.FC<ISettingsSelectProps> = ({
+  label,
+  menuPlacement,
+  value,
+  onChange,
+}) => {
+  const options = useRef([
+    {
+      value: null,
+      label: "Без звука",
+    },
     {
       value: new Audio("/src/assets/audio/Frog Sound Effect.mp3"),
       label: "Лягушка",
     },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    {
+      value: new Audio("src/assets/audio/Cock Sound Effect.mp3"),
+      label: "Петух",
+    },
+    {
+      value: new Audio("src/assets/audio/Parrot - Sound Effect.mp3"),
+      label: "Попугай",
+    },
+    {
+      value: new Audio("src/assets/audio/Sound Effect Woody.mp3"),
+      label: "Вуди",
+    },
+    {
+      value: new Audio("src/assets/audio/Whistle Sound Effect.mp3"),
+      label: "Свист",
+    },
   ]);
 
   return (
@@ -20,8 +44,13 @@ export const SettingsSelect: React.FC<ISettingsSelectProps> = ({ label }) => {
       {label}
       <Select
         options={options.current}
+        defaultValue={options.current[0]}
+        value={value}
         components={{ Option: CustomSoundOption }}
+        onChange={(value) => onChange(value as ISoundOptions)}
         isSearchable={false}
+        menuPlacement={menuPlacement}
+        menuShouldScrollIntoView
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,

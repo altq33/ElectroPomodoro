@@ -1,33 +1,44 @@
 import { OptionProps } from "react-select";
 import "./CustomSoundOption.scss";
 import classNames from "classnames";
+import { ISoundOptions } from "@/types/types";
 
-export const CustomSoundOption = (props: OptionProps) => {
-  // TODO: Сюда как дженерик можно прокинуть тип чтоб пофикисить value
+export const CustomSoundOption: React.FC<OptionProps<ISoundOptions>> = ({
+  innerRef,
+  isDisabled,
+  isFocused,
+  isSelected,
+  className,
+  innerProps,
+  children,
+  data,
+}) => {
   return (
     <div
-      ref={props.innerRef}
+      ref={innerRef}
       className={classNames(
         {
           option: true,
-          disabled: props.isDisabled,
-          focused: props.isFocused,
-          selected: props.isSelected,
+          disabled: isDisabled,
+          focused: isFocused,
+          selected: isSelected,
         },
-        props.className,
+        className,
         "option-container"
       )}
-      {...props.innerProps}
+      {...innerProps}
     >
-      {props.children}
-      <button
-        className="play-sound-button"
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          props.data?.value?.play();
-        }}
-      />
+      {children}
+      {data.value && (
+        <button
+          className="play-sound-button"
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            data.value?.play();
+          }}
+        />
+      )}
     </div>
   );
 };

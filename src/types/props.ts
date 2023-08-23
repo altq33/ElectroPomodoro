@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { ISoundOptions } from "./types";
 
 export interface ISelectStateButtonProps {
   title: string;
@@ -48,4 +49,7 @@ export interface INumberPickerProps {
 
 export interface ISettingsSelectProps {
   label: string;
+  menuPlacement: "bottom" | "auto" | "top";
+  value: ISoundOptions;
+  onChange: (value: ISoundOptions) => void;
 }
