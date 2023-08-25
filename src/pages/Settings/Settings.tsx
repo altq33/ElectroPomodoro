@@ -31,6 +31,8 @@ export const Settings = () => {
     label: "Без звука",
   });
   const [volume, setVolume] = useState(0.5);
+  // TODO: Поменять расположение состояний и как то их оптимзировать
+  // Перфоманс дико страдает
 
   return (
     <div className="content">
