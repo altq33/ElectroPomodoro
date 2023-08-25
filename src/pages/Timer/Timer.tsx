@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Timer.scss";
 import { SelectStateButton } from "@/components/SelectStateButton/SelectStateButton";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -9,8 +9,11 @@ import startIcon from "../../assets/play-circle-svgrepo-com.svg";
 import prevIcon from "../../assets/prev-svgrepo-com.svg";
 import nextIcon from "../../assets/next-svgrepo-com.svg";
 import { PomosCompletedDisplay } from "@/components/PomosCompletedDisplay/PomosCompletedDisplay";
+import { SettingsContext } from "@/components/Layout/Layout";
 
 export const Timer = () => {
+  const { settings, setSettings } = useContext(SettingsContext);
+
   return (
     <div className="content">
       <div className="control-panel">
@@ -21,10 +24,10 @@ export const Timer = () => {
         </div>
         <div className="timer-container">
           <CircularProgressbar
-            value={29}
+            value={settings.workTime}
             maxValue={100}
             strokeWidth={5}
-            text="10:00"
+            text={`${settings.workTime}`}
             styles={buildStyles({
               strokeLinecap: "round",
               textSize: "1.5rem",
@@ -43,7 +46,7 @@ export const Timer = () => {
           <TimerControlButton icon={nextIcon} />
         </div>
       </div>
-      <PomosCompletedDisplay count={5} completed={3} />
+      <PomosCompletedDisplay count={settings.workPomoCount} completed={0} />
     </div>
   );
 };

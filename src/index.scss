@@ -59,3 +59,19 @@ a:active {
 *:focus-visible {
   outline: 3px black solid !important;
 }
+
+body::-webkit-scrollbar {
+  width: 11px;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: $textColor transparent;
+}
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: $textColor;
+  border-radius: 6px;
+  border: 3px solid transparent;
+}

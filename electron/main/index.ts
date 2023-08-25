@@ -44,7 +44,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 async function createWindow() {
   win = new BrowserWindow({
     title: "Electro Pomodoro",
-    icon: join(process.env.VITE_PUBLIC, "favicon.ico"),
+    icon: join(process.env.VITE_PUBLIC, "main-fav-ico.png"),
     autoHideMenuBar: true,
     show: false,
     webPreferences: {

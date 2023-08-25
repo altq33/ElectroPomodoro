@@ -42,12 +42,20 @@
 .logo {
   font-weight: bold;
   font-size: 2.5rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  gap: 10px;
   @media screen and (max-width: 840px) {
     font-size: 1.8rem;
   }
   @media screen and (max-width: 670px) {
     font-size: 1.2rem;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
   }
 }
 

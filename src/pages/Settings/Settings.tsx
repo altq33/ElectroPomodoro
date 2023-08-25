@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { SettingsGroup } from "@/components/SettingsGroup/SettingsGroup";
 import "./Settings.scss";
 import { SettingsRange } from "@/components/SettingsRange/SettingsRange";
@@ -9,30 +9,63 @@ import { ISoundOptions } from "@/types/types";
 import intervalsIcon from "../../assets/clock-lines-svgrepo-com.svg";
 import transitionIcon from "../../assets/transition-node-svgrepo-com.svg";
 import soundIcon from "../../assets/music-svgrepo-com.svg";
+import { SettingsContext } from "@/components/Layout/Layout";
 
 export const Settings = () => {
-  const [workTime, setWorkTime] = useState(40);
-  const [breakTime, setBreakTime] = useState(5);
-  const [restTime, setRestTime] = useState(15);
-  const [isAutoStartWork, setIsAutoStartWork] = useState(false);
-  const [isAutoStartBreak, setIsAutoStartBreak] = useState(false);
-  const [isAutoStartRest, setIsAutoStartRest] = useState(false);
-  const [workPomoCount, setWorkPomoCount] = useState(3);
-  const [workTimeSound, setWorkTimeSound] = useState<ISoundOptions>({
-    value: null,
-    label: "Без звука",
-  });
-  const [breakTimeSound, setBreakTimeSound] = useState<ISoundOptions>({
-    value: null,
-    label: "Без звука",
-  });
-  const [restTimeSound, setRestTimeSound] = useState<ISoundOptions>({
-    value: null,
-    label: "Без звука",
-  });
-  const [volume, setVolume] = useState(0.5);
-  // TODO: Поменять расположение состояний и как то их оптимзировать
-  // Перфоманс дико страдает
+  // FIXME: Переписать с контекста на localStorage, написать функции для работы с Ls
+  const { settings, setSettings } = useContext(SettingsContext);
+  const [workTime, setWorkTime] = useState(settings.workTime);
+  const [breakTime, setBreakTime] = useState(settings.breakTime);
+  const [restTime, setRestTime] = useState(settings.restTime);
+  const [isAutoStartWork, setIsAutoStartWork] = useState(
+    settings.isAutoStartWork
+  );
+  const [isAutoStartBreak, setIsAutoStartBreak] = useState(
+    settings.isAutoStartBreak
+  );
+  const [isAutoStartRest, setIsAutoStartRest] = useState(
+    settings.isAutoStartRest
+  );
+  const [workPomoCount, setWorkPomoCount] = useState(settings.workPomoCount);
+  const [workTimeSound, setWorkTimeSound] = useState<ISoundOptions>(
+    settings.workTimeSound
+  );
+  const [breakTimeSound, setBreakTimeSound] = useState<ISoundOptions>(
+    settings.breakTimeSound
+  );
+  const [restTimeSound, setRestTimeSound] = useState<ISoundOptions>(
+    settings.restTimeSound
+  );
+  const [volume, setVolume] = useState(settings.volume);
+
+  useEffect(() => {
+    setSettings!!({
+      ...settings,
+      volume,
+      restTimeSound,
+      breakTimeSound,
+      workTimeSound,
+      isAutoStartRest,
+      workPomoCount,
+      isAutoStartBreak,
+      isAutoStartWork,
+      restTime,
+      breakTime,
+      workTime,
+    });
+  }, [
+    volume,
+    restTimeSound,
+    breakTimeSound,
+    workTimeSound,
+    isAutoStartRest,
+    workPomoCount,
+    isAutoStartBreak,
+    isAutoStartWork,
+    restTime,
+    breakTime,
+    workTime,
+  ]);
 
   return (
     <div className="content">
@@ -103,7 +136,7 @@ export const Settings = () => {
               value={restTimeSound}
             />
             <SettingsRange
-              label="Громкость"
+              label="Громкость / %"
               value={volume}
               onChange={setVolume}
               min={0.01}
