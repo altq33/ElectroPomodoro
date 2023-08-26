@@ -1,71 +1,22 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { SettingsGroup } from "@/components/SettingsGroup/SettingsGroup";
 import "./Settings.scss";
 import { SettingsRange } from "@/components/SettingsRange/SettingsRange";
 import { NumberPicker } from "@/components/NumberPicker/NumberPicker";
 import { SettingsSwitch } from "@/components/SettingsSwitch/SettingsSwitch";
 import { SettingsSelect } from "@/components/SettingsSelect/SettingsSelect";
-import { ISoundOptions } from "@/types/types";
 import intervalsIcon from "../../assets/clock-lines-svgrepo-com.svg";
 import transitionIcon from "../../assets/transition-node-svgrepo-com.svg";
 import soundIcon from "../../assets/music-svgrepo-com.svg";
-import { SettingsContext } from "@/components/Layout/Layout";
+import { useSettings } from "../../stores/settings";
+import { numberPickerMargin } from "@/resources/styles";
 
 export const Settings = () => {
-  // FIXME: Переписать с контекста на localStorage, написать функции для работы с Ls
-  const { settings, setSettings } = useContext(SettingsContext);
-  const [workTime, setWorkTime] = useState(settings.workTime);
-  const [breakTime, setBreakTime] = useState(settings.breakTime);
-  const [restTime, setRestTime] = useState(settings.restTime);
-  const [isAutoStartWork, setIsAutoStartWork] = useState(
-    settings.isAutoStartWork
+  const { setSettings, ...settings } = useSettings((state) => state);
+  const renderVolumeValue = useCallback(
+    (value: number) => Math.round(value * 100),
+    []
   );
-  const [isAutoStartBreak, setIsAutoStartBreak] = useState(
-    settings.isAutoStartBreak
-  );
-  const [isAutoStartRest, setIsAutoStartRest] = useState(
-    settings.isAutoStartRest
-  );
-  const [workPomoCount, setWorkPomoCount] = useState(settings.workPomoCount);
-  const [workTimeSound, setWorkTimeSound] = useState<ISoundOptions>(
-    settings.workTimeSound
-  );
-  const [breakTimeSound, setBreakTimeSound] = useState<ISoundOptions>(
-    settings.breakTimeSound
-  );
-  const [restTimeSound, setRestTimeSound] = useState<ISoundOptions>(
-    settings.restTimeSound
-  );
-  const [volume, setVolume] = useState(settings.volume);
-
-  useEffect(() => {
-    setSettings!!({
-      ...settings,
-      volume,
-      restTimeSound,
-      breakTimeSound,
-      workTimeSound,
-      isAutoStartRest,
-      workPomoCount,
-      isAutoStartBreak,
-      isAutoStartWork,
-      restTime,
-      breakTime,
-      workTime,
-    });
-  }, [
-    volume,
-    restTimeSound,
-    breakTimeSound,
-    workTimeSound,
-    isAutoStartRest,
-    workPomoCount,
-    isAutoStartBreak,
-    isAutoStartWork,
-    restTime,
-    breakTime,
-    workTime,
-  ]);
 
   return (
     <div className="content">
@@ -74,25 +25,25 @@ export const Settings = () => {
           <SettingsGroup legend="Интервалы" icon={intervalsIcon}>
             <SettingsRange
               label="Рабочее время / мин"
-              value={workTime}
-              onChange={setWorkTime}
+              value={settings.workTime}
+              onChange={settings.setWorkTime}
             />
             <SettingsRange
               label="Перерыв / мин"
-              value={breakTime}
-              onChange={setBreakTime}
+              value={settings.breakTime}
+              onChange={settings.setBreakTime}
             />
             <SettingsRange
               label="Отдых / мин"
-              value={restTime}
-              onChange={setRestTime}
+              value={settings.restTime}
+              onChange={settings.setRestTime}
             />
             <label className="range-label" htmlFor="">
               Количество помидор до отдыха
               <NumberPicker
-                style={{ marginTop: "20px" }}
-                value={workPomoCount}
-                onChange={setWorkPomoCount}
+                style={numberPickerMargin}
+                value={settings.workPomoCount}
+                onChange={settings.setWorkPomoCount}
                 min={1}
                 max={15}
                 readOnly
@@ -102,47 +53,47 @@ export const Settings = () => {
           <SettingsGroup legend="Автопереходы" icon={transitionIcon}>
             <SettingsSwitch
               label="Автостарт работы"
-              value={isAutoStartWork}
-              onChange={setIsAutoStartWork}
+              value={settings.isAutoStartWork}
+              onChange={settings.setIsAutoStartWork}
             />
             <SettingsSwitch
               label="Автостарт перерыва"
-              value={isAutoStartBreak}
-              onChange={setIsAutoStartBreak}
+              value={settings.isAutoStartBreak}
+              onChange={settings.setIsAutoStartBreak}
             />
             <SettingsSwitch
               label="Автостарт отдыха"
-              value={isAutoStartRest}
-              onChange={setIsAutoStartRest}
+              value={settings.isAutoStartRest}
+              onChange={settings.setIsAutoStartRest}
             />
           </SettingsGroup>
           <SettingsGroup legend="Звуки" icon={soundIcon}>
             <SettingsSelect
               label="Пора работать"
               menuPlacement="bottom"
-              onChange={setWorkTimeSound}
-              value={workTimeSound}
+              onChange={settings.setWorkTimeSound}
+              value={settings.workTimeSound}
             />
             <SettingsSelect
               label="Время перерыва"
               menuPlacement="top"
-              onChange={setBreakTimeSound}
-              value={breakTimeSound}
+              onChange={settings.setBreakTimeSound}
+              value={settings.breakTimeSound}
             />
             <SettingsSelect
               label="Отдохни дружище"
               menuPlacement="top"
-              onChange={setRestTimeSound}
-              value={restTimeSound}
+              onChange={settings.setRestTimeSound}
+              value={settings.restTimeSound}
             />
             <SettingsRange
               label="Громкость / %"
-              value={volume}
-              onChange={setVolume}
+              value={settings.volume}
+              onChange={settings.setVolume}
               min={0.01}
               max={1}
               step={0.01}
-              renderValue={(value) => Math.round(value * 100)}
+              renderValue={renderVolumeValue}
             />
           </SettingsGroup>
         </form>

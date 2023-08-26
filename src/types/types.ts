@@ -16,7 +16,17 @@ export interface ISettings {
   volume: number;
 }
 
-export interface ISettingsContextValue {
-  settings: ISettings;
-  setSettings: ((value: ISettings) => void) | null;
+export interface ISettingsActions {
+  setSettings: (state: ISettings) => void;
+  setWorkTime: (value: number) => void;
+  setBreakTime: (value: number) => void;
+  setRestTime: (value: number) => void;
+  setWorkPomoCount: (value: number) => void;
+  setIsAutoStartWork: (value: boolean) => void;
+  setIsAutoStartBreak: (value: boolean) => void;
+  setIsAutoStartRest: (value: boolean) => void;
+  setBreakTimeSound: (value: ISoundOptions) => void;
+  setWorkTimeSound: (value: ISoundOptions) => void;
+  setRestTimeSound: (value: ISoundOptions) => void;
+  setVolume: (value: number) => void;
 }

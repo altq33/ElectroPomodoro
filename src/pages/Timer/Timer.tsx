@@ -9,10 +9,10 @@ import startIcon from "../../assets/play-circle-svgrepo-com.svg";
 import prevIcon from "../../assets/prev-svgrepo-com.svg";
 import nextIcon from "../../assets/next-svgrepo-com.svg";
 import { PomosCompletedDisplay } from "@/components/PomosCompletedDisplay/PomosCompletedDisplay";
-import { SettingsContext } from "@/components/Layout/Layout";
+import { useSettings } from "@/stores/settings";
 
 export const Timer = () => {
-  const { settings, setSettings } = useContext(SettingsContext);
+  const settings = useSettings((state) => state);
 
   return (
     <div className="content">

@@ -34,7 +34,6 @@ export const SettingsSelect: React.FC<ISettingsSelectProps> = React.memo(
         label: "Свист",
       },
     ]);
-
     return (
       <label className="select-label">
         {label}

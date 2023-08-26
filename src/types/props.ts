@@ -31,7 +31,7 @@ export interface ISettingsGroupProps {
 export interface ISettingsRangeProps {
   label: string;
   value: number;
-  onChange: React.Dispatch<React.SetStateAction<number>>;
+  onChange: (value: number) => void;
   min?: number;
   max?: number;
   step?: number;
