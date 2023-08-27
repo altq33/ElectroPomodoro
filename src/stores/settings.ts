@@ -1,8 +1,8 @@
-import { ISettings, ISettingsActions, ISoundOptions } from "@/types/types";
+import { ISettingsStore, ISettingsActions, ISoundOptions } from "@/types/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export const useSettings = create<ISettings & ISettingsActions>()(
+export const useSettings = create<ISettingsStore & ISettingsActions>()(
   persist(
     (set, get) => ({
       workTime: 30,
@@ -25,7 +25,7 @@ export const useSettings = create<ISettings & ISettingsActions>()(
         label: "Без звука",
       },
       volume: 0.5,
-      setSettings: (state: ISettings) => set({ ...state }),
+      setSettings: (state: ISettingsStore) => set({ ...state }),
       setWorkTime: (value: number) => set({ workTime: value }),
       setBreakTime: (value: number) => set({ breakTime: value }),
       setRestTime: (value: number) => set({ restTime: value }),

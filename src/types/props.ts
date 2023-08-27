@@ -14,6 +14,7 @@ export interface ITimerControlButtonProps {
 export interface IPomosCompletedDisplayProps {
   count: number;
   completed: number;
+  isWorking: boolean;
 }
 
 export interface IPomoProps {

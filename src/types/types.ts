@@ -2,7 +2,7 @@ export interface ISoundOptions {
   value: null | HTMLAudioElement;
   label: string;
 }
-export interface ISettings {
+export interface ISettingsStore {
   workTime: number;
   breakTime: number;
   restTime: number;
@@ -17,7 +17,7 @@ export interface ISettings {
 }
 
 export interface ISettingsActions {
-  setSettings: (state: ISettings) => void;
+  setSettings: (state: ISettingsStore) => void;
   setWorkTime: (value: number) => void;
   setBreakTime: (value: number) => void;
   setRestTime: (value: number) => void;
@@ -29,4 +29,26 @@ export interface ISettingsActions {
   setWorkTimeSound: (value: ISoundOptions) => void;
   setRestTimeSound: (value: ISoundOptions) => void;
   setVolume: (value: number) => void;
+}
+
+export enum PomoStage {
+  work = "WORK",
+  break = "BREAK",
+  rest = "REST",
+}
+
+export interface ITimerStore {
+  isPaused: boolean;
+  stage: PomoStage;
+  secondsLeft: number | null;
+  completedPomosCount: number;
+}
+
+export interface ITimerActions {
+  setIsPaused: (value: boolean) => void;
+  setStage: (value: PomoStage) => void;
+  setSecondsLeft: (value: number) => void;
+  setCompletedPomosCount: (value: number) => void;
+  decrementSecondsLeft: () => void;
+  switchMode: (settings: ISettingsStore & ISettingsActions) => void;
 }

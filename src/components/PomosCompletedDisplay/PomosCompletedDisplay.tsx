@@ -6,6 +6,7 @@ import { IPomosCompletedDisplayProps } from "@/types/props";
 export const PomosCompletedDisplay: React.FC<IPomosCompletedDisplayProps> = ({
   count,
   completed,
+  isWorking,
 }) => {
   const pomosToRender = Array(count).fill(undefined);
 
@@ -13,7 +14,7 @@ export const PomosCompletedDisplay: React.FC<IPomosCompletedDisplayProps> = ({
     <div className="pomos-container">
       {pomosToRender.map((_, index) => {
         if (index != count && index == completed) {
-          return <Pomo key={index} isCurrent />;
+          return <Pomo key={index} isCurrent={isWorking} />;
         }
         return index < completed ? (
           <Pomo key={index} isCompleted />

@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import "./SettingsSelect.scss";
 import { ISettingsSelectProps } from "@/types/props";
 import Select from "react-select";
-import { SettingsSwitch } from "../SettingsSwitch/SettingsSwitch";
 import { CustomSoundOption } from "../CustomSoundOption/CustomSoundOption";
 import { ISoundOptions } from "@/types/types";
 

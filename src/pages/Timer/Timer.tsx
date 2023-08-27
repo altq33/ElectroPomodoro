@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "./Timer.scss";
 import { SelectStateButton } from "@/components/SelectStateButton/SelectStateButton";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -10,24 +10,62 @@ import prevIcon from "../../assets/prev-svgrepo-com.svg";
 import nextIcon from "../../assets/next-svgrepo-com.svg";
 import { PomosCompletedDisplay } from "@/components/PomosCompletedDisplay/PomosCompletedDisplay";
 import { useSettings } from "@/stores/settings";
+import { useTimer } from "@/stores/timer";
+import { PomoStage } from "@/types/types";
+import { useInterval } from "@/hooks/useInterval";
 
 export const Timer = () => {
   const settings = useSettings((state) => state);
+  const timer = useTimer((state) => state);
+
+  const getTotalSeconds = () => {
+    switch (timer.stage) {
+      case PomoStage.work:
+        return settings.workTime * 60;
+      case PomoStage.rest:
+        return settings.restTime * 60;
+      case PomoStage.break:
+        return settings.breakTime * 60;
+    }
+  };
+
+  useEffect(() => {
+    timer.setSecondsLeft(settings.workTime * 60);
+  }, [settings]);
+
+  useInterval(() => {
+    if (timer.isPaused) return;
+    if (timer.secondsLeft === 0) {
+      return timer.switchMode(settings);
+    }
+    timer.decrementSecondsLeft();
+  }, 100);
 
   return (
     <div className="content">
       <div className="control-panel">
         <div className="state-buttons-container">
-          <SelectStateButton title="Работа" isActive />
-          <SelectStateButton title="Перерыв" isActive={false} />
-          <SelectStateButton title="Отдых" isActive={false} />
+          <SelectStateButton
+            title="Работа"
+            isActive={timer.stage == PomoStage.work}
+          />
+          <SelectStateButton
+            title="Перерыв"
+            isActive={timer.stage == PomoStage.break}
+          />
+          <SelectStateButton
+            title="Отдых"
+            isActive={timer.stage == PomoStage.rest}
+          />
         </div>
         <div className="timer-container">
           <CircularProgressbar
-            value={settings.workTime}
+            value={Math.round((timer.secondsLeft!! / getTotalSeconds()) * 100)}
             maxValue={100}
             strokeWidth={5}
-            text={`${settings.workTime}`}
+            text={`${Math.floor(timer.secondsLeft!! / 60)}:${
+              timer.secondsLeft!! % 60
+            }`}
             styles={buildStyles({
               strokeLinecap: "round",
               textSize: "1.5rem",
@@ -46,7 +84,11 @@ export const Timer = () => {
           <TimerControlButton icon={nextIcon} />
         </div>
       </div>
-      <PomosCompletedDisplay count={settings.workPomoCount} completed={0} />
+      <PomosCompletedDisplay
+        count={settings.workPomoCount}
+        completed={timer.completedPomosCount}
+        isWorking={timer.stage == PomoStage.work}
+      />
     </div>
   );
 };
