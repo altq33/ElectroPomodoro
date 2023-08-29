@@ -13,7 +13,7 @@ import { numberPickerMargin } from "@/resources/styles";
 
 export const Settings = () => {
   const { setSettings, ...settings } = useSettings((state) => state);
-  const renderVolumeValue = useCallback(
+  const calculateRenderVolumeValue = useCallback(
     (value: number) => Math.round(value * 100),
     []
   );
@@ -93,7 +93,7 @@ export const Settings = () => {
               min={0.01}
               max={1}
               step={0.01}
-              renderValue={renderVolumeValue}
+              onRenderValue={calculateRenderVolumeValue}
             />
           </SettingsGroup>
         </form>

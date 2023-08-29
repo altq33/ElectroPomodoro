@@ -11,7 +11,7 @@ export const SettingsRange: React.FC<ISettingsRangeProps> = React.memo(
     min = 1,
     max = 100,
     step = 1,
-    renderValue = (value: number) => value,
+    onRenderValue = (value: number) => value,
   }) => {
     return (
       <label className="range-label" htmlFor="">
@@ -31,7 +31,7 @@ export const SettingsRange: React.FC<ISettingsRangeProps> = React.memo(
           )}
           renderThumb={({ props }) => (
             <div {...props} className="range-thumb">
-              {renderValue(value)}
+              {onRenderValue(value)}
             </div>
           )}
         />

@@ -4,10 +4,11 @@ import { ITimerControlButtonProps } from "@/types/props";
 
 export const TimerControlButton: React.FC<ITimerControlButtonProps> = ({
   icon,
-  alt
+  alt,
+  onClick,
 }) => {
   return (
-    <button className="timer-control-btn">
+    <button className="timer-control-btn" onClick={onClick}>
       <img src={icon} alt={alt} />
     </button>
   );

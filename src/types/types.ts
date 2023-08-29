@@ -2,6 +2,7 @@ export interface ISoundOptions {
   value: null | HTMLAudioElement;
   label: string;
 }
+
 export interface ISettingsStore {
   workTime: number;
   breakTime: number;
@@ -51,4 +52,8 @@ export interface ITimerActions {
   setCompletedPomosCount: (value: number) => void;
   decrementSecondsLeft: () => void;
   switchMode: (settings: ISettingsStore & ISettingsActions) => void;
+  setMode: (
+    settings: ISettingsStore & ISettingsActions,
+    stage: PomoStage
+  ) => void;
 }

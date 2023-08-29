@@ -1,14 +1,16 @@
-import { ReactNode } from "react";
+import { ReactNode, MouseEvent } from "react";
 import { ISoundOptions } from "./types";
 
 export interface ISelectStateButtonProps {
   title: string;
   isActive: boolean;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface ITimerControlButtonProps {
   icon: string;
   alt?: string;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface IPomosCompletedDisplayProps {
@@ -36,7 +38,7 @@ export interface ISettingsRangeProps {
   min?: number;
   max?: number;
   step?: number;
-  renderValue?: (value: number) => number | string;
+  onRenderValue?: (value: number) => number | string;
 }
 
 export interface ISettingsSwitchProps {

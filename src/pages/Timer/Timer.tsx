@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, MouseEvent } from "react";
 import "./Timer.scss";
 import { SelectStateButton } from "@/components/SelectStateButton/SelectStateButton";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -13,6 +13,7 @@ import { useSettings } from "@/stores/settings";
 import { useTimer } from "@/stores/timer";
 import { PomoStage } from "@/types/types";
 import { useInterval } from "@/hooks/useInterval";
+import { normalizeTime } from "@/utils/utils";
 
 export const Timer = () => {
   const settings = useSettings((state) => state);
@@ -29,6 +30,28 @@ export const Timer = () => {
     }
   };
 
+  const onPlay = (e: MouseEvent<HTMLButtonElement>) => {
+    timer.setIsPaused(false);
+    console.log(timer);
+  };
+
+  const onPause = (e: MouseEvent<HTMLButtonElement>) => {
+    timer.setIsPaused(true);
+    console.log(timer);
+  };
+
+  const setWorkStage = () => {
+    timer.setMode(settings, PomoStage.work);
+  };
+
+  const setBreakStage = () => {
+    timer.setMode(settings, PomoStage.break);
+  };
+
+  const setRestStage = () => {
+    timer.setMode(settings, PomoStage.rest);
+  };
+
   useEffect(() => {
     timer.setSecondsLeft(settings.workTime * 60);
   }, [settings]);
@@ -39,7 +62,7 @@ export const Timer = () => {
       return timer.switchMode(settings);
     }
     timer.decrementSecondsLeft();
-  }, 100);
+  }, 1000);
 
   return (
     <div className="content">
@@ -48,14 +71,17 @@ export const Timer = () => {
           <SelectStateButton
             title="Работа"
             isActive={timer.stage == PomoStage.work}
+            onClick={setWorkStage}
           />
           <SelectStateButton
             title="Перерыв"
             isActive={timer.stage == PomoStage.break}
+            onClick={setBreakStage}
           />
           <SelectStateButton
             title="Отдых"
             isActive={timer.stage == PomoStage.rest}
+            onClick={setRestStage}
           />
         </div>
         <div className="timer-container">
@@ -63,9 +89,10 @@ export const Timer = () => {
             value={Math.round((timer.secondsLeft!! / getTotalSeconds()) * 100)}
             maxValue={100}
             strokeWidth={5}
-            text={`${Math.floor(timer.secondsLeft!! / 60)}:${
+            text={normalizeTime(
+              Math.floor(timer.secondsLeft!! / 60),
               timer.secondsLeft!! % 60
-            }`}
+            )}
             styles={buildStyles({
               strokeLinecap: "round",
               textSize: "1.5rem",
@@ -75,12 +102,16 @@ export const Timer = () => {
               textColor: "#f4f3f4",
               trailColor: "rgba(255, 255, 255, 0.8)",
             })}
+            counterClockwise
           />
         </div>
         <div className="timer-controllers">
           <TimerControlButton icon={prevIcon} />
-          <TimerControlButton icon={pauseIcon} />
-          <TimerControlButton icon={startIcon} />
+          {timer.isPaused ? (
+            <TimerControlButton icon={startIcon} onClick={onPlay} />
+          ) : (
+            <TimerControlButton icon={pauseIcon} onClick={onPause} />
+          )}
           <TimerControlButton icon={nextIcon} />
         </div>
       </div>

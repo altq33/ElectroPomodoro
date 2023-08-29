@@ -6,6 +6,7 @@ import { ISelectStateButtonProps } from "@/types/props";
 export const SelectStateButton: React.FC<ISelectStateButtonProps> = ({
   title,
   isActive,
+  onClick,
 }) => {
   return (
     <button
@@ -13,6 +14,7 @@ export const SelectStateButton: React.FC<ISelectStateButtonProps> = ({
         "select-state-btn": true,
         active: isActive,
       })}
+      onClick={onClick}
     >
       {title}
     </button>

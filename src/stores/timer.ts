@@ -41,7 +41,36 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
           break;
       }
     },
+    setMode: (
+      settings: ISettingsStore & ISettingsActions,
+      stage: PomoStage
+    ) => {
+      if (get().stage == stage) return;
 
+      const newState: Partial<ITimerStore> = {
+        stage,
+        completedPomosCount:
+          get().stage == PomoStage.work
+            ? get().completedPomosCount + 1
+            : get().completedPomosCount,
+      };
+
+      switch (stage) {
+        case PomoStage.work:
+          newState.secondsLeft = settings.workTime * 60;
+          newState.isPaused = !settings.isAutoStartWork;
+          break;
+        case PomoStage.break:
+          newState.secondsLeft = settings.breakTime * 60;
+          newState.isPaused = !settings.isAutoStartBreak;
+          break;
+        case PomoStage.rest:
+          newState.secondsLeft = settings.restTime * 60;
+          newState.isPaused = !settings.isAutoStartRest;
+      }
+
+      set(newState);
+    },
     setCompletedPomosCount: (value: number) =>
       set({ completedPomosCount: value }),
   }))
