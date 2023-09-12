@@ -12,6 +12,29 @@ export const useSettings = create<ISettingsStore & ISettingsActions>()(
       isAutoStartWork: false,
       isAutoStartBreak: false,
       isAutoStartRest: false,
+      options: [
+        {
+          value: null,
+          label: "Без звука",
+        },
+        {
+          value: "/src/assets/audio/Frog Sound Effect.mp3",
+          label: "Лягушка",
+        },
+        { value: "/src/assets/audio/Cock Sound Effect.mp3", label: "Петух" },
+        {
+          value: "/src/assets/audio/Parrot - Sound Effect.mp3",
+          label: "Попугай",
+        },
+        {
+          value: "/src/assets/audio/Sound Effect Woody.mp3",
+          label: "Вуди",
+        },
+        {
+          value: "/src/assets/audio/Whistle Sound Effect.mp3",
+          label: "Свист",
+        },
+      ],
       breakTimeSound: {
         value: null,
         label: "Без звука",

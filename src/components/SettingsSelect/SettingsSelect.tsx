@@ -6,39 +6,12 @@ import { CustomSoundOption } from "../CustomSoundOption/CustomSoundOption";
 import { ISoundOptions } from "@/types/types";
 
 export const SettingsSelect: React.FC<ISettingsSelectProps> = React.memo(
-  ({ label, menuPlacement, value, onChange }) => {
-    const options = useRef([
-      {
-        value: null,
-        label: "Без звука",
-      },
-      {
-        value: new Audio("/src/assets/audio/Frog Sound Effect.mp3"),
-        label: "Лягушка",
-      },
-      {
-        value: new Audio("src/assets/audio/Cock Sound Effect.mp3"),
-        label: "Петух",
-      },
-      {
-        value: new Audio("src/assets/audio/Parrot - Sound Effect.mp3"),
-        label: "Попугай",
-      },
-      {
-        value: new Audio("src/assets/audio/Sound Effect Woody.mp3"),
-        label: "Вуди",
-      },
-      {
-        value: new Audio("src/assets/audio/Whistle Sound Effect.mp3"),
-        label: "Свист",
-      },
-    ]);
+  ({ label, menuPlacement, value, onChange, options }) => {
     return (
       <label className="select-label">
         {label}
         <Select
-          options={options.current}
-          defaultValue={options.current[0]}
+          options={options}
           value={value}
           components={{ Option: CustomSoundOption }}
           onChange={(value) => onChange(value as ISoundOptions)}

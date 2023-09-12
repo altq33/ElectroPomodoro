@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useRef, MouseEvent } from "react";
+import { useEffect, MouseEvent } from "react";
 import "./Timer.scss";
 import { SelectStateButton } from "@/components/SelectStateButton/SelectStateButton";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { TimerControlButton } from "@/components/TimerControlButton/TimerControlButton";
-import pauseIcon from "../../assets/pause-circle-svgrepo-com.svg";
-import startIcon from "../../assets/play-circle-svgrepo-com.svg";
-import prevIcon from "../../assets/prev-svgrepo-com.svg";
-import nextIcon from "../../assets/next-svgrepo-com.svg";
+import pauseIcon from "@/assets/pause-circle-svgrepo-com.svg";
+import startIcon from "@/assets/play-circle-svgrepo-com.svg";
+import nextIcon from "@/assets/next-svgrepo-com.svg";
 import { PomosCompletedDisplay } from "@/components/PomosCompletedDisplay/PomosCompletedDisplay";
 import { useSettings } from "@/stores/settings";
 import { useTimer } from "@/stores/timer";
@@ -32,12 +31,10 @@ export const Timer = () => {
 
   const onPlay = (e: MouseEvent<HTMLButtonElement>) => {
     timer.setIsPaused(false);
-    console.log(timer);
   };
 
   const onPause = (e: MouseEvent<HTMLButtonElement>) => {
     timer.setIsPaused(true);
-    console.log(timer);
   };
 
   const setWorkStage = () => {
@@ -52,6 +49,11 @@ export const Timer = () => {
     timer.setMode(settings, PomoStage.rest);
   };
 
+  const nextStage = () => {
+    timer.switchMode(settings, true);
+  };
+
+  // FIXME: Переписать всё с эффектом на рабочее состояние всегда
   useEffect(() => {
     timer.setSecondsLeft(settings.workTime * 60);
   }, [settings]);
@@ -62,7 +64,7 @@ export const Timer = () => {
       return timer.switchMode(settings);
     }
     timer.decrementSecondsLeft();
-  }, 1000);
+  }, 100);
 
   return (
     <div className="content">
@@ -106,19 +108,18 @@ export const Timer = () => {
           />
         </div>
         <div className="timer-controllers">
-          <TimerControlButton icon={prevIcon} />
           {timer.isPaused ? (
             <TimerControlButton icon={startIcon} onClick={onPlay} />
           ) : (
             <TimerControlButton icon={pauseIcon} onClick={onPause} />
           )}
-          <TimerControlButton icon={nextIcon} />
+          <TimerControlButton icon={nextIcon} onClick={nextStage} />
         </div>
       </div>
       <PomosCompletedDisplay
         count={settings.workPomoCount}
         completed={timer.completedPomosCount}
-        isWorking={timer.stage == PomoStage.work}
+        isWorking={timer.stage == PomoStage.work && !timer.isPaused}
       />
     </div>
   );

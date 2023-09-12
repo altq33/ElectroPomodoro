@@ -12,11 +12,12 @@ import { useSettings } from "../../stores/settings";
 import { numberPickerMargin } from "@/resources/styles";
 
 export const Settings = () => {
-  const { setSettings, ...settings } = useSettings((state) => state);
+  const settings = useSettings((state) => state);
   const calculateRenderVolumeValue = useCallback(
     (value: number) => Math.round(value * 100),
     []
   );
+  console.log(settings.options);
 
   return (
     <div className="content">
@@ -69,18 +70,21 @@ export const Settings = () => {
           </SettingsGroup>
           <SettingsGroup legend="Звуки" icon={soundIcon}>
             <SettingsSelect
+              options={settings.options}
               label="Пора работать"
               menuPlacement="bottom"
               onChange={settings.setWorkTimeSound}
               value={settings.workTimeSound}
             />
             <SettingsSelect
+              options={settings.options}
               label="Время перерыва"
               menuPlacement="top"
               onChange={settings.setBreakTimeSound}
               value={settings.breakTimeSound}
             />
             <SettingsSelect
+              options={settings.options}
               label="Отдохни дружище"
               menuPlacement="top"
               onChange={settings.setRestTimeSound}

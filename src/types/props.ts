@@ -58,6 +58,7 @@ export interface INumberPickerProps {
 
 export interface ISettingsSelectProps {
   label: string;
+  options: ISoundOptions[];
   menuPlacement: "bottom" | "auto" | "top";
   value: ISoundOptions;
   onChange: (value: ISoundOptions) => void;
