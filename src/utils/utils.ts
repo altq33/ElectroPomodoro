@@ -3,3 +3,6 @@ export const normalizeTime = (minutes: number, seconds: number): string => {
   let normalizedSeconds = seconds < 10 ? `0${seconds}` : seconds;
   return `${normalizedMinutes}:${normalizedSeconds}`;
 };
+
+export const calculateRenderVolumeValue = (value: number) =>
+  Math.round(value * 100);

@@ -12,6 +12,7 @@ export const useSettings = create<ISettingsStore & ISettingsActions>()(
       isAutoStartWork: false,
       isAutoStartBreak: false,
       isAutoStartRest: false,
+      pomoGoal: 1,
       options: [
         {
           value: null,
@@ -52,11 +53,14 @@ export const useSettings = create<ISettingsStore & ISettingsActions>()(
       setWorkTime: (value: number) => set({ workTime: value }),
       setBreakTime: (value: number) => set({ breakTime: value }),
       setRestTime: (value: number) => set({ restTime: value }),
-      setWorkPomoCount: (value: number) => set({ workPomoCount: value }),
+      setWorkPomoCount: (value: number) => {
+        set({ workPomoCount: value });
+      },
       setIsAutoStartWork: (value: boolean) => set({ isAutoStartWork: value }),
       setIsAutoStartBreak: (value: boolean) => set({ isAutoStartBreak: value }),
       setIsAutoStartRest: (value: boolean) => set({ isAutoStartRest: value }),
       setWorkTimeSound: (value: ISoundOptions) => set({ workTimeSound: value }),
+      setPomoGoal: (value: number) => set({ pomoGoal: value }),
       setBreakTimeSound: (value: ISoundOptions) =>
         set({ breakTimeSound: value }),
       setRestTimeSound: (value: ISoundOptions) => set({ restTimeSound: value }),

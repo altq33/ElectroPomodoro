@@ -1,9 +1,9 @@
 @use "../../vars.scss" as *;
 
-fieldset {
+.fieldset {
   all: unset;
   width: 100%;
-  legend {
+  .legend {
     font-size: 1.5rem;
     font-weight: bold;
     padding-bottom: 2px;

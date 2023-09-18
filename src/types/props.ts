@@ -29,6 +29,7 @@ export interface ISettingsGroupProps {
   icon: string;
   iconAlt?: string;
   children: ReactNode;
+  isFormPart?: boolean;
 }
 
 export interface ISettingsRangeProps {

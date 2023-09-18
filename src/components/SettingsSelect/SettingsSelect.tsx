@@ -56,7 +56,7 @@ export const SettingsSelect: React.FC<ISettingsSelectProps> = React.memo(
             option: (baseStyles, state) => ({
               ...baseStyles,
               borderBottom: "1px solid black",
-              background: state.isFocused || state.isSelected ? "#44318d" : "",
+              background: state.isSelected ? "#44318d" : "",
               ":hover": {},
               ":last-child": {
                 border: "none",

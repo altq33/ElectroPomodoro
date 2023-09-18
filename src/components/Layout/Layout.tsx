@@ -1,16 +1,29 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useLayoutEffect, useState } from "react";
 import { Link, Outlet, useHref, useLocation } from "react-router-dom";
 import "./Layout.scss";
 import logoIcon from "../../assets/main-logo.svg";
+import { PomoStage } from "@/types/types";
+import { useTimer } from "@/stores/timer";
 
 export const Layout = () => {
   const location = useLocation();
+  const timer = useTimer((state) => state);
   const locationAllias: {
     [key: string]: string;
   } = {
     settings: "Настройки",
     stats: "Статистика",
   };
+
+  useLayoutEffect(() => {
+    if (timer.stage == PomoStage.work) {
+      document.documentElement.dataset.theme = "work";
+    } else if (timer.stage == PomoStage.break) {
+      document.documentElement.dataset.theme = "break";
+    } else {
+      document.documentElement.dataset.theme = "rest";
+    }
+  }, []);
 
   return (
     <div className="wrapper">

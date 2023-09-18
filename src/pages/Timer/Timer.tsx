@@ -1,4 +1,3 @@
-import { useEffect, MouseEvent } from "react";
 import "./Timer.scss";
 import { SelectStateButton } from "@/components/SelectStateButton/SelectStateButton";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -8,63 +7,22 @@ import pauseIcon from "@/assets/pause-circle-svgrepo-com.svg";
 import startIcon from "@/assets/play-circle-svgrepo-com.svg";
 import nextIcon from "@/assets/next-svgrepo-com.svg";
 import { PomosCompletedDisplay } from "@/components/PomosCompletedDisplay/PomosCompletedDisplay";
-import { useSettings } from "@/stores/settings";
-import { useTimer } from "@/stores/timer";
 import { PomoStage } from "@/types/types";
-import { useInterval } from "@/hooks/useInterval";
 import { normalizeTime } from "@/utils/utils";
+import { useTimerLogic } from "@/hooks/useTimerLogic";
 
 export const Timer = () => {
-  const settings = useSettings((state) => state);
-  const timer = useTimer((state) => state);
-
-  const getTotalSeconds = () => {
-    switch (timer.stage) {
-      case PomoStage.work:
-        return settings.workTime * 60;
-      case PomoStage.rest:
-        return settings.restTime * 60;
-      case PomoStage.break:
-        return settings.breakTime * 60;
-    }
-  };
-
-  const onPlay = (e: MouseEvent<HTMLButtonElement>) => {
-    timer.setIsPaused(false);
-  };
-
-  const onPause = (e: MouseEvent<HTMLButtonElement>) => {
-    timer.setIsPaused(true);
-  };
-
-  const setWorkStage = () => {
-    timer.setMode(settings, PomoStage.work);
-  };
-
-  const setBreakStage = () => {
-    timer.setMode(settings, PomoStage.break);
-  };
-
-  const setRestStage = () => {
-    timer.setMode(settings, PomoStage.rest);
-  };
-
-  const nextStage = () => {
-    timer.switchMode(settings, true);
-  };
-
-  // FIXME: Переписать всё с эффектом на рабочее состояние всегда
-  useEffect(() => {
-    timer.setSecondsLeft(settings.workTime * 60);
-  }, [settings]);
-
-  useInterval(() => {
-    if (timer.isPaused) return;
-    if (timer.secondsLeft === 0) {
-      return timer.switchMode(settings);
-    }
-    timer.decrementSecondsLeft();
-  }, 100);
+  const {
+    timer,
+    settings,
+    getTotalSeconds,
+    onPlay,
+    onPause,
+    setWorkStage,
+    setBreakStage,
+    setRestStage,
+    nextStage,
+  } = useTimerLogic();
 
   return (
     <div className="content">
@@ -88,8 +46,8 @@ export const Timer = () => {
         </div>
         <div className="timer-container">
           <CircularProgressbar
-            value={Math.round((timer.secondsLeft!! / getTotalSeconds()) * 100)}
-            maxValue={100}
+            value={timer.secondsLeft!!}
+            maxValue={getTotalSeconds(timer, settings)}
             strokeWidth={5}
             text={normalizeTime(
               Math.floor(timer.secondsLeft!! / 60),
@@ -100,7 +58,7 @@ export const Timer = () => {
               textSize: "1.5rem",
               rotation: -0.25,
               pathTransitionDuration: 0.5,
-              pathColor: `#8265a7`,
+              pathColor: `#482774`,
               textColor: "#f4f3f4",
               trailColor: "rgba(255, 255, 255, 0.8)",
             })}

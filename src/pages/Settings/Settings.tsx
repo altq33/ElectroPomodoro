@@ -1,4 +1,3 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
 import { SettingsGroup } from "@/components/SettingsGroup/SettingsGroup";
 import "./Settings.scss";
 import { SettingsRange } from "@/components/SettingsRange/SettingsRange";
@@ -8,36 +7,33 @@ import { SettingsSelect } from "@/components/SettingsSelect/SettingsSelect";
 import intervalsIcon from "../../assets/clock-lines-svgrepo-com.svg";
 import transitionIcon from "../../assets/transition-node-svgrepo-com.svg";
 import soundIcon from "../../assets/music-svgrepo-com.svg";
-import { useSettings } from "../../stores/settings";
 import { numberPickerMargin } from "@/resources/styles";
+import { calculateRenderVolumeValue } from "@/utils/utils";
+import { useSettingsLogic } from "@/hooks/useSettingsLogic";
 
 export const Settings = () => {
-  const settings = useSettings((state) => state);
-  const calculateRenderVolumeValue = useCallback(
-    (value: number) => Math.round(value * 100),
-    []
-  );
-  console.log(settings.options);
+  const { settings, onChangeBreakTime, onChangeWorkTime, onChangeRestTime } =
+    useSettingsLogic();
 
   return (
     <div className="content">
       <div className="control-panel">
         <form className="settings-form" action="">
-          <SettingsGroup legend="Интервалы" icon={intervalsIcon}>
+          <SettingsGroup legend="Интервалы" icon={intervalsIcon} isFormPart>
             <SettingsRange
               label="Рабочее время / мин"
               value={settings.workTime}
-              onChange={settings.setWorkTime}
+              onChange={onChangeWorkTime}
             />
             <SettingsRange
               label="Перерыв / мин"
               value={settings.breakTime}
-              onChange={settings.setBreakTime}
+              onChange={onChangeBreakTime}
             />
             <SettingsRange
               label="Отдых / мин"
               value={settings.restTime}
-              onChange={settings.setRestTime}
+              onChange={onChangeRestTime}
             />
             <label className="range-label" htmlFor="">
               Количество помидор до отдыха
@@ -50,8 +46,19 @@ export const Settings = () => {
                 readOnly
               />
             </label>
+            <label className="range-label" htmlFor="">
+              Цель / Помидор в день
+              <NumberPicker
+                style={numberPickerMargin}
+                value={settings.pomoGoal}
+                onChange={settings.setPomoGoal}
+                min={1}
+                max={100}
+                readOnly
+              />
+            </label>
           </SettingsGroup>
-          <SettingsGroup legend="Автопереходы" icon={transitionIcon}>
+          <SettingsGroup legend="Автопереходы" icon={transitionIcon} isFormPart>
             <SettingsSwitch
               label="Автостарт работы"
               value={settings.isAutoStartWork}
@@ -68,7 +75,7 @@ export const Settings = () => {
               onChange={settings.setIsAutoStartRest}
             />
           </SettingsGroup>
-          <SettingsGroup legend="Звуки" icon={soundIcon}>
+          <SettingsGroup legend="Звуки" icon={soundIcon} isFormPart>
             <SettingsSelect
               options={settings.options}
               label="Пора работать"

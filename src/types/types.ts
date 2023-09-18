@@ -7,6 +7,7 @@ export interface ISettingsStore {
   workTime: number;
   breakTime: number;
   restTime: number;
+  pomoGoal: number;
   workPomoCount: number;
   options: ISoundOptions[];
   isAutoStartWork: boolean;
@@ -22,6 +23,7 @@ export interface ISettingsActions {
   setSettings: (state: ISettingsStore) => void;
   setWorkTime: (value: number) => void;
   setBreakTime: (value: number) => void;
+  setPomoGoal: (value: number) => void;
   setRestTime: (value: number) => void;
   setWorkPomoCount: (value: number) => void;
   setIsAutoStartWork: (value: boolean) => void;
@@ -44,6 +46,7 @@ export interface ITimerStore {
   stage: PomoStage;
   secondsLeft: number | null;
   completedPomosCount: number;
+  currentTimerId: NodeJS.Timer | null;
 }
 
 export interface ITimerActions {
@@ -51,6 +54,8 @@ export interface ITimerActions {
   setStage: (value: PomoStage) => void;
   setSecondsLeft: (value: number) => void;
   setCompletedPomosCount: (value: number) => void;
+  startTimer: () => void;
+  pauseTimer: () => void;
   decrementSecondsLeft: () => void;
   switchMode: (
     settings: ISettingsStore & ISettingsActions,
@@ -60,4 +65,14 @@ export interface ITimerActions {
     settings: ISettingsStore & ISettingsActions,
     stage: PomoStage
   ) => void;
+}
+
+export interface IStatsStore {
+  todayPomo: number; 
+  todayHours: number;
+  currentDay: number; 
+}
+
+export interface IStatsActions {
+
 }
