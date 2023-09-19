@@ -64,3 +64,29 @@ export interface ISettingsSelectProps {
   value: ISoundOptions;
   onChange: (value: ISoundOptions) => void;
 }
+
+export interface IDailyProgressProps {
+  goal: number;
+  current: number;
+  hoursWork: number;
+  hoursRest: number;
+}
+
+export interface IAllTimeStatsProps {
+  totalHours: number;
+  workDays: number;
+  streak: number;
+  totalPomos: number;
+}
+
+export interface IFlameProps {
+  value: string | number;
+}
+
+export interface IClockProps {
+  value: number;
+}
+
+export interface ICalendarProps {
+  value: number;
+}

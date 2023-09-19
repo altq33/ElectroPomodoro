@@ -8,6 +8,7 @@ import {
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { useSettings } from "./settings";
+import { useStats } from "./stats";
 
 export const useTimer = create<ITimerStore & ITimerActions>()(
   devtools(
@@ -26,8 +27,15 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
           const timerId = setInterval(() => {
             if (get().secondsLeft === 0) {
               get().switchMode(useSettings.getState());
+              return;
             }
             get().decrementSecondsLeft();
+            const statsState = useStats.getState();
+            if (get().stage == PomoStage.work) {
+              statsState.incrementTodaySecondsWork();
+            } else {
+              statsState.incrementTodaySecondsRest();
+            }
           }, 1000);
           set({ currentTimerId: timerId, isPaused: false });
         },
@@ -45,6 +53,7 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
           switch (get().stage) {
             case PomoStage.work:
               set({ completedPomosCount: get().completedPomosCount + 1 });
+              useStats.getState().incrementTodayPomo();
               if (get().completedPomosCount < settings.workPomoCount) {
                 if (settings.breakTimeSound.value && !isManualSwitch) {
                   const audio = new Audio(settings.breakTimeSound.value);
@@ -60,13 +69,13 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
                 });
                 document.documentElement.dataset.theme = "break";
               } else {
+                if (!settings.isAutoStartRest || isManualSwitch) {
+                  get().pauseTimer();
+                }
                 if (settings.restTimeSound.value && !isManualSwitch) {
                   const audio = new Audio(settings.restTimeSound.value);
                   audio.volume = settings.volume;
                   audio.play();
-                }
-                if (!settings.isAutoStartRest || isManualSwitch) {
-                  get().pauseTimer();
                 }
                 set({
                   completedPomosCount: 0,
@@ -111,6 +120,10 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
                   : get().completedPomosCount
                 : 0,
           };
+
+          if (get().stage == PomoStage.work) {
+            useStats.getState().incrementTodayPomo();
+          }
 
           switch (stage) {
             case PomoStage.work:

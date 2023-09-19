@@ -4,16 +4,11 @@ import "./Layout.scss";
 import logoIcon from "../../assets/main-logo.svg";
 import { PomoStage } from "@/types/types";
 import { useTimer } from "@/stores/timer";
+import { locationAllias } from "@/resources/constants";
 
 export const Layout = () => {
   const location = useLocation();
   const timer = useTimer((state) => state);
-  const locationAllias: {
-    [key: string]: string;
-  } = {
-    settings: "Настройки",
-    stats: "Статистика",
-  };
 
   useLayoutEffect(() => {
     if (timer.stage == PomoStage.work) {
@@ -22,6 +17,9 @@ export const Layout = () => {
       document.documentElement.dataset.theme = "break";
     } else {
       document.documentElement.dataset.theme = "rest";
+    }
+    if (!timer.isPaused) {
+      timer.startTimer();
     }
   }, []);
 

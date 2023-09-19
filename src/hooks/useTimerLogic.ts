@@ -51,12 +51,6 @@ export const useTimerLogic = () => {
     timer.switchMode(settings, true);
   };
 
-  useEffect(() => {
-    if (!timer.isPaused) {
-      timer.startTimer();
-    }
-  }, []);
-
   return {
     timer,
     settings,

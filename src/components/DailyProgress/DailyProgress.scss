@@ -1,0 +1,59 @@
+@use "../../vars.scss" as *;
+
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 0 10px;
+
+  @media screen and (max-width: 460px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.pie {
+  width: 50%;
+  @media screen and (max-width: 460px) {
+    width: 80%;
+  }
+}
+
+.stats-number-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-size: 1.5rem;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.number-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: appear 1s ease forwards;
+  &:hover {
+    transform: translateX(30px);
+  }
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $lightLongBreakColor;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+  }
+}

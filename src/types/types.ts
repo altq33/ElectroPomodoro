@@ -68,11 +68,27 @@ export interface ITimerActions {
 }
 
 export interface IStatsStore {
-  todayPomo: number; 
-  todayHours: number;
-  currentDay: number; 
+  todayPomo: number;
+  todaySecondsWork: number;
+  todaySecondsRest: number;
+  currentDate: string;
+  totalWorkSeconds: number;
+  isWorkingToday: boolean;
+  totalWorkDays: number;
+  streak: number;
+  totalPomos: number;
 }
 
 export interface IStatsActions {
-
+  incrementTodayPomo: () => void;
+  setTodaySecondsWork: (value: number) => void;
+  setTodaySecondsRest: (value: number) => void;
+  incrementTodaySecondsWork: () => void;
+  incrementTodaySecondsRest: () => void;
+  setCurrentDay: (value: string) => void;
+  resetDailyStats: () => void;
+  incrementStreak: () => void;
+  resetStreak: () => void;
+  incrementTotalWorkDays: () => void;
+  setIsWorkingToday: (value: boolean) => void;
 }

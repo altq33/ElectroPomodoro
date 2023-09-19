@@ -1,0 +1,44 @@
+@use "../../vars.scss" as *;
+
+.all-time-progress-container {
+  width: 100%;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  row-gap: 30px;
+}
+
+.total-stat-element {
+  padding: 5px;
+  background-color: $lightLongBreakColor;
+  &:nth-child(2n + 1) {
+    background-color: rgb(22, 109, 68);
+  }
+  border-radius: 13px;
+  position: relative;
+  font-size: 1.5rem;
+  display: flex;
+  padding-right: 70px;
+  .circle {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 20px;
+  }
+}
+
+.bg-tomato {
+  background-image: url("../../assets/main-logo.svg");
+  background-blend-mode: color;
+  background-size: cover;
+}
