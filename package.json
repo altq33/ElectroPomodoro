@@ -36,6 +36,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.32.0",
+    "@types/electron": "^1.6.10",
+    "@types/node": "^20.6.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-numeric-input": "^2.2.4",

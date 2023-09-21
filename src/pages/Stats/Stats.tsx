@@ -13,7 +13,7 @@ export const Stats = () => {
   const pomoGoal = useSettings((state) => state.pomoGoal);
 
   useLayoutEffect(() => {
-    if (stats.currentDate !== new Date().toDateString()) {
+    if (stats.currentDate !== new Date().toLocaleDateString()) {
       stats.resetDailyStats();
     }
   }, []);

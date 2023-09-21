@@ -46,7 +46,7 @@ export interface ITimerStore {
   stage: PomoStage;
   secondsLeft: number | null;
   completedPomosCount: number;
-  currentTimerId: NodeJS.Timer | null;
+  currentTimerId: ReturnType<typeof setInterval> | null;
 }
 
 export interface ITimerActions {

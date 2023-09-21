@@ -8,9 +8,13 @@ export const calculateRenderVolumeValue = (value: number) =>
   Math.round(value * 100);
 
 export const isPreviousDay = (currentDate: string, prevDate: string) => {
-  const prevByCurrentDay = new Date(currentDate);
+  const dateParts = currentDate.split(".");
+  const prevByCurrentDay = new Date(
+    parseInt(dateParts[2]),
+    parseInt(dateParts[1]) - 1,
+    parseInt(dateParts[0])
+  );
   prevByCurrentDay.setDate(prevByCurrentDay.getDate() - 1);
 
-  const prevByCurrentDayString = prevByCurrentDay.toDateString();
-  return prevByCurrentDayString == prevDate;
+  return prevByCurrentDay.toLocaleDateString() == prevDate;
 };

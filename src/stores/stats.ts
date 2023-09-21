@@ -15,8 +15,8 @@ export const useStats = create<IStatsStore & IStatsActions>()(
   persist(
     (set, get) => ({
       todayPomo: 0,
-      currentDate: new Date().toDateString(),
-      prevDate: new Date().toDateString(),
+      currentDate: new Date().toLocaleDateString(),
+      prevDate: new Date().toLocaleDateString(),
       todaySecondsWork: 0,
       todaySecondsRest: 0,
       streak: 0,
@@ -52,7 +52,7 @@ export const useStats = create<IStatsStore & IStatsActions>()(
       resetDailyStats: () => {
         set({
           todayPomo: 0,
-          currentDate: new Date().toDateString(),
+          currentDate: new Date().toLocaleDateString(),
           prevDate: get().currentDate,
           todaySecondsWork: 0,
           todaySecondsRest: 0,
