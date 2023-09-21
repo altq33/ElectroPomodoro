@@ -10,6 +10,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useTimer } from "./timer";
 import { useSettings } from "./settings";
+import { isPreviousDay } from "@/utils/utils";
 
 export const useStats = create<IStatsStore & IStatsActions>()(
   persist(
@@ -44,20 +45,25 @@ export const useStats = create<IStatsStore & IStatsActions>()(
             ? get().totalWorkDays
             : get().totalWorkDays + 1,
           isWorkingToday: true,
+          streak: get().isWorkingToday ? get().streak : get().streak + 1,
         });
-        // FIXME: сменить всё нахер на toLocaleDateString потому что так будет правильней и так будте легче высчитать стрик
       },
       setTodaySecondsRest: (value) => set({ todaySecondsRest: value }),
       setTodaySecondsWork: (value) => set({ todaySecondsWork: value }),
       resetDailyStats: () => {
+        const currentDateString = new Date().toLocaleDateString();
         set({
           todayPomo: 0,
-          currentDate: new Date().toLocaleDateString(),
+          currentDate: currentDateString,
           prevDate: get().currentDate,
           todaySecondsWork: 0,
           todaySecondsRest: 0,
           isWorkingToday: false,
+          streak: isPreviousDay(currentDateString, get().currentDate)
+            ? get().streak
+            : 0,
         });
+
         useTimer.setState({
           stage: PomoStage.work,
           secondsLeft: useSettings.getState().workTime,

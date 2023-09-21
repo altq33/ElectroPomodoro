@@ -5,7 +5,7 @@ import {
   ISettingsActions,
   ISettingsStore,
 } from "@/types/types";
-import { create } from "zustand";
+import { create, useStore } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { useSettings } from "./settings";
 import { useStats } from "./stats";
@@ -16,7 +16,7 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
       (set, get) => ({
         isPaused: true,
         stage: PomoStage.work,
-        secondsLeft: null,
+        secondsLeft: useSettings.getState().workTime * 60,
         completedPomosCount: 0,
         currentTimerId: null,
         setIsPaused: (value: boolean) => set({ isPaused: value }),
