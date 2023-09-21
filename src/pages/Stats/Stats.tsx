@@ -15,7 +15,6 @@ export const Stats = () => {
   useLayoutEffect(() => {
     if (stats.currentDate !== new Date().toDateString()) {
       stats.resetDailyStats();
-      
     }
   }, []);
 

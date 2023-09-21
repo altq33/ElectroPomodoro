@@ -6,3 +6,11 @@ export const normalizeTime = (minutes: number, seconds: number): string => {
 
 export const calculateRenderVolumeValue = (value: number) =>
   Math.round(value * 100);
+
+export const isPreviousDay = (currentDate: string, prevDate: string) => {
+  const prevByCurrentDay = new Date(currentDate);
+  prevByCurrentDay.setDate(prevByCurrentDay.getDate() - 1);
+
+  const prevByCurrentDayString = prevByCurrentDay.toDateString();
+  return prevByCurrentDayString == prevDate;
+};

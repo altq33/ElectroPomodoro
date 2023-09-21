@@ -72,6 +72,7 @@ export interface IStatsStore {
   todaySecondsWork: number;
   todaySecondsRest: number;
   currentDate: string;
+  prevDate: string;
   totalWorkSeconds: number;
   isWorkingToday: boolean;
   totalWorkDays: number;
