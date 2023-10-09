@@ -11,7 +11,6 @@ export const AllTimeStats: React.FC<IAllTimeStatsProps> = ({
   totalPomos,
   workDays,
 }) => {
-  // TODO: Создать компонент большой плитки вместо маленьких
   return (
     <div className="all-time-progress-container">
       <div className="total-stat-element">

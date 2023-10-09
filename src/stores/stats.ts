@@ -1,11 +1,4 @@
-import {
-  ISettingsStore,
-  ISettingsActions,
-  ISoundOptions,
-  IStatsStore,
-  IStatsActions,
-  PomoStage,
-} from "@/types/types";
+import { IStatsStore, IStatsActions, PomoStage } from "@/types/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useTimer } from "./timer";
@@ -66,7 +59,7 @@ export const useStats = create<IStatsStore & IStatsActions>()(
 
         useTimer.setState({
           stage: PomoStage.work,
-          secondsLeft: useSettings.getState().workTime,
+          secondsLeft: useSettings.getState().workTime * 60,
           isPaused: true,
           completedPomosCount: 0,
         });

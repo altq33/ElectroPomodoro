@@ -5,10 +5,15 @@ import logoIcon from "../../assets/main-logo.svg";
 import { PomoStage } from "@/types/types";
 import { useTimer } from "@/stores/timer";
 import { locationAllias } from "@/resources/constants";
+import { useStats } from "@/stores/stats";
 
 export const Layout = () => {
   const location = useLocation();
   const timer = useTimer((state) => state);
+  const { currentDate, resetDailyStats } = useStats((state) => ({
+    currentDate: state.currentDate,
+    resetDailyStats: state.resetDailyStats,
+  }));
 
   useLayoutEffect(() => {
     if (timer.stage == PomoStage.work) {
@@ -20,6 +25,9 @@ export const Layout = () => {
     }
     if (!timer.isPaused) {
       timer.startTimer();
+    }
+    if (currentDate !== new Date().toLocaleDateString()) {
+      resetDailyStats();
     }
   }, []);
 

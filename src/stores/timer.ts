@@ -9,6 +9,7 @@ import { create, useStore } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { useSettings } from "./settings";
 import { useStats } from "./stats";
+import mainLogo from "@/assets/main-logo.svg";
 
 export const useTimer = create<ITimerStore & ITimerActions>()(
   devtools(
@@ -63,6 +64,13 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
                 if (!settings.isAutoStartBreak || isManualSwitch) {
                   get().pauseTimer();
                 }
+                if (!isManualSwitch) {
+                  new Notification("Пора сделать перерыв!", {
+                    icon: mainLogo,
+                    requireInteraction: true,
+                    tag: "newStage",
+                  });
+                }
                 set({
                   stage: PomoStage.break,
                   secondsLeft: settings.breakTime * 60,
@@ -77,6 +85,14 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
                   audio.volume = settings.volume;
                   audio.play();
                 }
+                if (!isManualSwitch) {
+                  new Notification("Пора отдохнуть!", {
+                    icon: mainLogo,
+                    requireInteraction: true,
+                    tag: "newStage",
+                  });
+                }
+
                 set({
                   completedPomosCount: 0,
                   stage: PomoStage.rest,
@@ -93,6 +109,14 @@ export const useTimer = create<ITimerStore & ITimerActions>()(
                 audio.volume = settings.volume;
                 audio.play();
               }
+              if (!isManualSwitch) {
+                new Notification("Пора работать!", {
+                  icon: mainLogo,
+                  requireInteraction: true,
+                  tag: "newStage",
+                });
+              }
+
               if (!settings.isAutoStartWork || isManualSwitch) {
                 get().pauseTimer();
               }

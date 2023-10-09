@@ -49,9 +49,6 @@ async function createWindow() {
     show: false,
     webPreferences: {
       preload,
-      // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-      // Consider using contextBridge.exposeInMainWorld
-      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
       contextIsolation: false,
     },
@@ -62,8 +59,6 @@ async function createWindow() {
   if (url) {
     // electron-vite-vue#298
     win.loadURL(url);
-    // Open devTool if the app is not packaged
-    win.webContents.openDevTools();
   } else {
     win.loadFile(indexHtml);
   }

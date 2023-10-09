@@ -35,7 +35,8 @@ export const CustomSoundOption: React.FC<OptionProps<ISoundOptions>> = ({
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            data.value?.play();
+            const audio = new Audio(data.value ?? "");
+            audio.play();
           }}
         />
       )}

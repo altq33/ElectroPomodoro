@@ -12,12 +12,6 @@ export const Stats = () => {
   const stats = useStats((state) => state);
   const pomoGoal = useSettings((state) => state.pomoGoal);
 
-  useLayoutEffect(() => {
-    if (stats.currentDate !== new Date().toLocaleDateString()) {
-      stats.resetDailyStats();
-    }
-  }, []);
-
   return (
     <div className="content">
       <div className="control-panel">
